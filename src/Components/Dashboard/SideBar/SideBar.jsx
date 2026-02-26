@@ -1,17 +1,13 @@
 import React, { useContext, useState } from "react";
-import { motion } from "framer-motion";
 // Icons
-import { GrLogout } from "react-icons/gr";
-import { AiOutlineBars } from "react-icons/ai";
-import { MdCarRental } from "react-icons/md";
+import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { AuthContext } from "../../../context/AuthContext";
-import back from "../../../assets/dashboard.jpg";
 // Optional MenuItem component for cleaner code
 const MenuItem = ({ icon: Icon, label, address }) => (
   <Link
     to={address}
-    className="flex items-center px-4 py-2 mt-2 text-white hover:bg-[#003366] rounded-lg transition-colors duration-300"
+    className="flex items-center px-4 py-2 mt-2 text-[#6F767E]  rounded-lg transition-colors duration-300"
   >
     {Icon && <Icon className="w-5 h-5" />}
     <span className="ml-3">{label}</span>
@@ -39,13 +35,13 @@ const Sidebar = () => {
           onClick={handleToggle}
           className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-200"
         >
-          <AiOutlineBars className="h-5 w-5" />
+          {/* <AiOutlineBars className="h-5 w-5" /> */}
         </button>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-[#001737] w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
+        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-[#F7F7F7] w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
           isActive ? "-translate-x-full" : "translate-x-0"
         } transition duration-200 ease-in-out`}
       >
@@ -53,14 +49,14 @@ const Sidebar = () => {
           {/* Top Logo */}
           <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center mx-auto">
             <Link to="/">
-              <MdCarRental className="text-7xl text-white" />
+              {/* <MdCarRental className="text-7xl text-white" /> */}
             </Link>
             <motion.h1
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="text-2xl font-semibold cursor-pointer text-white"
             >
-              <Link to="/">Car Rental</Link>
+              <Link to="/">Task Flow</Link>
             </motion.h1>
           </div>
 
@@ -69,10 +65,10 @@ const Sidebar = () => {
             <nav>
               {user ? (
                 <>
-                  <MenuItem label="Add Car" address="/dashboard/addCar" />
-                  <MenuItem label="My Listings" address="/dashboard/listings" />
-                  <MenuItem label="Browse Cars" address="/dashboard/brows" />
-                  <MenuItem label="My Bookings" address="/dashboard/booking" />
+                  <MenuItem label="Overview" address="/dashboard/overview" />
+                  <MenuItem label="analytics" address="/dashboard/Analytics" />
+                  {/* <MenuItem label="Browse Cars" address="/dashboard/brows" /> */}
+                  {/* <MenuItem label="My Bookings" address="/dashboard/booking" /> */}
                 </>
               ) : (
                 <MenuItem label="Please login" address="/login" />
@@ -88,7 +84,7 @@ const Sidebar = () => {
                 onClick={handleSignoutFun}
                 className="flex items-center px-4 py-2 mt-5 w-full text-white hover:bg-red-600 rounded-lg transition-colors duration-300"
               >
-                <GrLogout className="w-5 h-5" />
+                {/* <GrLogout className="w-5 h-5" /> */}
                 <span className="ml-3 font-medium">Logout</span>
               </button>
             </div>

@@ -2,8 +2,9 @@ import Home from "../pages/Home";
 import Dashboard from "../Components/Dashboard/DashboardLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ErrorPage from "../pages/ErrorPage";
-import Tasks from "../pages/Tasks";
 import { createBrowserRouter } from "react-router";
+import Analytics from "../pages/Analytics";
+import Overview from "../pages/Overview";
 
 export const router = createBrowserRouter([
   {
@@ -26,10 +27,18 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "tasks",
+        path: "overview",
         element: (
           <PrivateRoute>
-            <Tasks />
+            <Overview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "analytics",
+        element: (
+          <PrivateRoute>
+            <Analytics />
           </PrivateRoute>
         ),
       },

@@ -21,7 +21,9 @@ const Login = () => {
           password: password,
         },
       );
-
+      localStorage.setItem("user", JSON.stringify(res.data));
+      const token = res.data.token || "dummy-token";
+      localStorage.setItem("token", token);
       setUser(res.data);
       navigate("/dashboard");
     } catch (error) {
