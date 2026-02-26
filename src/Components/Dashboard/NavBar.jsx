@@ -1,59 +1,66 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { MdOutlineMail } from "react-icons/md";
+import { MdOutlineMail, MdSearch } from "react-icons/md";
+import { AuthContext } from "../../context/AuthContext";
+
 const NavBar = () => {
+  const { user } = useContext(AuthContext);
+
   return (
-    <div className="p-6 flex justify-center border border-red-400">
-      <div className="border border-green-400 flex justify-between w-[80%]">
-        <div>
-          <label className="input">
-            <svg
-              className="h-[1em] opacity-50"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <g
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                strokeWidth="2.5"
-                fill="none"
-                stroke="currentColor"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-              </g>
-            </svg>
-            <input type="search" required placeholder="Search" />
-          </label>
+    <div className="bg-white border-b border-gray-100 sticky top-0 z-30 px-4 md:px-8 py-3 md:py-4">
+      {/* Container: Mobile-e vertical column, Desktop-e horizontal row */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Left/Top Side: Search Bar */}
+        <div className="flex-1 w-full max-w-md order-2 md:order-1">
+          <div className="relative group">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <MdSearch className="h-5 w-5 text-[#9A9FA5] group-focus-within:text-[#29BA6A] transition-colors" />
+            </div>
+            <input
+              type="search"
+              placeholder="Search tasks..."
+              className="w-full bg-[#F4F4F4] border-none text-sm font-medium text-[#1A1D1F] pl-12 pr-4 py-2.5 rounded-2xl focus:ring-2 focus:ring-[#29BA6A]/20 focus:bg-white transition-all outline-none"
+            />
+          </div>
         </div>
 
-        {/* email */}
-        <MdOutlineMail className="text-3xl" />
-
-        {/* icons */}
-
-        <IoIosNotificationsOutline className="text-3xl" />
-
-        {/* একটু প্যাডিং দিলাম দেখার সুবিধার জন্য */}
-        {/* একটি মেইন কন্টেইনার যা ছবি এবং লেখাকে পাশাপাশি রাখবে */}
-        <div className="flex items-center gap-4">
-          {/* ১. ইমেজ অংশ (এটাকে সব সময় আলাদা রাখবেন) */}
-          <div className="avatar">
-            <div className="w-12 h-12 rounded-full ring-2 ring-primary ring-offset-2">
-              <img
-                className="rounded-full object-cover"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                alt="User Profile"
-              />
-            </div>
+        {/* Right Side: Icons & User Profile */}
+        <div className="flex items-center justify-between md:justify-end gap-4 md:gap-6 order-1 md:order-2 w-full md:w-auto">
+          {/* Icons Section */}
+          <div className="flex items-center gap-2 pr-4 md:border-r border-gray-100">
+            <button className="relative p-2 text-[#6F767E] hover:bg-gray-50 rounded-xl transition-all">
+              <MdOutlineMail className="text-2xl" />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-[#FF6A55] rounded-full border-2 border-white"></span>
+            </button>
+            <button className="relative p-2 text-[#6F767E] hover:bg-gray-50 rounded-xl transition-all">
+              <IoIosNotificationsOutline className="text-2xl" />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-[#FF6A55] rounded-full border-2 border-white"></span>
+            </button>
           </div>
 
-          {/* ২. টেক্সট অংশ (ইমেইল এবং নাম এর জন্য আলাদা ডিভ) */}
-          <div className="flex flex-col text-left">
-            <h4 className="text-sm font-bold text-gray-800 leading-none">
-              Totok Michael
-            </h4>
-            <p className="text-[11px] text-gray-500 mt-1">email@example.com</p>
+          {/* User Profile */}
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex flex-col text-right">
+              <h4 className="text-sm font-bold text-[#1A1D1F] leading-tight">
+                {user?.displayName || "Admin Account"}
+              </h4>
+              <p className="text-[11px] font-semibold text-[#6F767E] truncate max-w-[120px]">
+                {user?.email}
+              </p>
+            </div>
+            <div className="w-10 h-10 md:w-11 md:h-11 rounded-full border-2 border-[#EFEFEF] overflow-hidden bg-gray-100 flex items-center justify-center">
+              {user?.photoURL ? (
+                <img
+                  className="w-full h-full object-cover"
+                  src={user.photoURL}
+                  alt="User"
+                />
+              ) : (
+                <span className="text-sm font-bold">
+                  {user?.email?.charAt(0).toUpperCase() || "U"}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>

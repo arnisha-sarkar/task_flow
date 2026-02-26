@@ -6,6 +6,7 @@ import { createBrowserRouter } from "react-router";
 import Analytics from "../pages/Analytics";
 import Overview from "../pages/Overview";
 import Users from "../pages/Users";
+import Products from "../pages/Products";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Analytics />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "products",
+        element: (
+          <PrivateRoute>
+            <Products />
           </PrivateRoute>
         ),
       },

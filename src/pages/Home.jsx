@@ -3,11 +3,7 @@ import Login from "./Login";
 import MyContainer from "../Components/MyContainer";
 
 const Home = () => {
-  return (
-    <MyContainer>
-      <Login />
-    </MyContainer>
-  );
+  return <Login />;
 };
 
 export default Home;
