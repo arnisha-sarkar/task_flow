@@ -66,8 +66,9 @@ const Sidebar = () => {
               {user ? (
                 <>
                   <MenuItem label="Overview" address="/dashboard/overview" />
+                  <MenuItem label="Users" address="/dashboard/users" />
                   <MenuItem label="analytics" address="/dashboard/Analytics" />
-                  {/* <MenuItem label="Browse Cars" address="/dashboard/brows" /> */}
+
                   {/* <MenuItem label="My Bookings" address="/dashboard/booking" /> */}
                 </>
               ) : (

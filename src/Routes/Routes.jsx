@@ -5,6 +5,7 @@ import ErrorPage from "../pages/ErrorPage";
 import { createBrowserRouter } from "react-router";
 import Analytics from "../pages/Analytics";
 import Overview from "../pages/Overview";
+import Users from "../pages/Users";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Overview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <PrivateRoute>
+            <Users />
           </PrivateRoute>
         ),
       },
