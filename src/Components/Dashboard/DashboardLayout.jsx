@@ -15,7 +15,7 @@ const DashboardLayout = () => {
       <div className="flex-1 flex flex-col gap-5 overflow-hidden">
         <NavBar />
 
-        <div className="flex-1 bg-white rounded-[32px] p-8 shadow-sm overflow-y-auto">
+        <div className="flex-1 bg-[#F7F7F7] rounded-2xl p-8 shadow-sm overflow-y-auto">
           <Outlet />
         </div>
       </div>

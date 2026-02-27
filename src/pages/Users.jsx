@@ -107,14 +107,6 @@ const Users = () => {
               <div className="grid grid-cols-2 gap-4 text-left border-t pt-6">
                 <div>
                   <p className="text-xs text-gray-400 uppercase font-bold">
-                    User ID
-                  </p>
-                  <p className="font-medium text-[#1A1D1F]">
-                    #{selectedUser.id}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-400 uppercase font-bold">
                     Join Date
                   </p>
                   <p className="font-medium text-[#1A1D1F]">

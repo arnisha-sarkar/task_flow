@@ -1,374 +1,248 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const OverviewPage = () => {
-//   const [data, setData] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const getFullDashboardData = async () => {
-//       try {
-//         // dashboard API কল করলেই সব ডেটা একসাথে পাওয়া যাবে
-//         const response = await axios.get(
-//           "https://task-api-eight-flax.vercel.app/api/dashboard",
-//         );
-//         setData(response.data);
-//       } catch (error) {
-//         console.error("Error:", error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-//     getFullDashboardData();
-//   }, []);
-
-//   if (loading)
-//     return (
-//       <div className="p-10 text-center text-gray-500 font-medium">
-//         Loading Overview...
-//       </div>
-//     );
-
-//   return (
-//     <div className="space-y-7">
-//       {/* --- অংশ ১: Overview Cards (সংখ্যাগুলো) --- */}
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-//         {/* Total Users */}
-//         <div className="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
-//           <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">
-//             Total Users
-//           </p>
-//           <h3 className="text-2xl font-black text-gray-800 mt-2">
-//             {data?.overview?.totalUsers.toLocaleString()}
-//           </h3>
-//           <p className="text-green-500 text-xs mt-2 font-bold">
-//             ↑ 12% increase
-//           </p>
-//         </div>
-
-//         {/* Revenue */}
-//         <div className="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
-//           <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">
-//             Total Revenue
-//           </p>
-//           <h3 className="text-2xl font-black text-gray-800 mt-2">
-//             ${data?.overview?.revenue.toLocaleString()}
-//           </h3>
-//           <p className="text-blue-500 text-xs mt-2 font-bold">
-//             Growth: {data?.overview?.growth}%
-//           </p>
-//         </div>
-
-//         {/* Active Users */}
-//         <div className="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
-//           <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">
-//             Active Users
-//           </p>
-//           <h3 className="text-2xl font-black text-gray-800 mt-2">
-//             {data?.overview?.activeUsers.toLocaleString()}
-//           </h3>
-//           <div className="w-full bg-gray-100 h-1.5 mt-4 rounded-full overflow-hidden">
-//             <div
-//               className="bg-orange-400 h-full"
-//               style={{ width: "70%" }}
-//             ></div>
-//           </div>
-//         </div>
-
-//         {/* Growth Card */}
-//         <div className="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm bg-gradient-to-br from-indigo-500 to-purple-600">
-//           <p className="text-indigo-100 text-xs font-bold uppercase tracking-wider">
-//             Overall Growth
-//           </p>
-//           <h3 className="text-2xl font-black text-white mt-2">
-//             {data?.overview?.growth}%
-//           </h3>
-//           <p className="text-indigo-200 text-xs mt-2 font-medium">
-//             Yearly Target
-//           </p>
-//         </div>
-//       </div>
-
-//       {/* --- অংশ ২: Detailed Dashboard (টেবিল এবং এনালিটিক্স) --- */}
-//       <div className="grid grid-cols-1 lg:grid-cols-3 gap-7">
-//         {/* Recent Users Table (বাম পাশে ২ ভাগ) */}
-//         <div className="lg:col-span-2 bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm">
-//           <div className="flex justify-between items-center mb-6">
-//             <h3 className="text-lg font-bold text-gray-800">
-//               Recent Customers
-//             </h3>
-//             <button className="text-blue-600 text-sm font-bold hover:underline">
-//               View All
-//             </button>
-//           </div>
-//           <div className="overflow-x-auto">
-//             <table className="w-full">
-//               <thead>
-//                 <tr className="text-left text-gray-400 text-xs uppercase tracking-widest border-b border-gray-50">
-//                   <th className="pb-4 font-semibold">User Info</th>
-//                   <th className="pb-4 font-semibold">Status</th>
-//                   <th className="pb-4 font-semibold text-right">Join Date</th>
-//                 </tr>
-//               </thead>
-//               <tbody className="divide-y divide-gray-50">
-//                 {data?.users?.map((user) => (
-//                   <tr
-//                     key={user.id}
-//                     className="group hover:bg-gray-50 transition-all"
-//                   >
-//                     <td className="py-4">
-//                       <div className="flex items-center gap-3">
-//                         <div className="w-9 h-9 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs">
-//                           {user.name.charAt(0)}
-//                         </div>
-//                         <div>
-//                           <p className="text-sm font-bold text-gray-800">
-//                             {user.name}
-//                           </p>
-//                           <p className="text-[11px] text-gray-400">
-//                             {user.email}
-//                           </p>
-//                         </div>
-//                       </div>
-//                     </td>
-//                     <td className="py-4">
-//                       <span
-//                         className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase ${user.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}
-//                       >
-//                         {user.status}
-//                       </span>
-//                     </td>
-//                     <td className="py-4 text-right text-sm text-gray-500 font-medium">
-//                       {user.joinDate}
-//                     </td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           </div>
-//         </div>
-
-//         {/* Top Products (ডান পাশে ১ ভাগ) */}
-//         <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm">
-//           <h3 className="text-lg font-bold text-gray-800 mb-6">
-//             Popular Plans
-//           </h3>
-//           <div className="space-y-5">
-//             {data?.products?.map((product) => (
-//               <div
-//                 key={product.id}
-//                 className="flex items-center justify-between p-4 rounded-2xl bg-gray-50 border border-transparent hover:border-indigo-100 hover:bg-white transition-all cursor-pointer"
-//               >
-//                 <div className="flex flex-col">
-//                   <span className="text-sm font-bold text-gray-800">
-//                     {product.name}
-//                   </span>
-//                   <span className="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">
-//                     {product.category}
-//                   </span>
-//                 </div>
-//                 <div className="text-right">
-//                   <p className="text-sm font-black text-indigo-600">
-//                     ${product.price}
-//                   </p>
-//                   <p className="text-[10px] text-gray-400 font-bold">
-//                     {product.sales} sold
-//                   </p>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default OverviewPage;
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { MdAdd, MdFileDownload, MdPlayArrow, MdStop } from "react-icons/md";
+import { BsArrowUpRight } from "react-icons/bs";
+import { FaVideo } from "react-icons/fa";
+import AnalyticsChart from "../Components/AnalyticsChart";
+import Header from "../Components/Header";
+// --- API
+const fetchDashboardData = async () => {
+  const response = await axios.get(
+    "https://task-api-eight-flax.vercel.app/api/dashboard",
+  );
+  return response.data;
+};
 
-const OverviewPage = () => {
+const Overview = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getFullDashboardData = async () => {
-      try {
-        const response = await axios.get(
-          "https://task-api-eight-flax.vercel.app/api/dashboard",
-        );
-        setData(response.data);
-      } catch (error) {
-        console.error("Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getFullDashboardData();
+    fetchDashboardData()
+      .then(setData)
+      .catch((error) => console.error("Error fetching dashboard data:", error))
+      .finally(() => setLoading(false));
   }, []);
 
-  if (loading)
+  if (loading) {
     return (
-      <div className="p-10 text-center text-gray-500 font-medium">
+      <div className="min-h-screen flex items-center justify-center text-gray-500">
         Loading Overview...
       </div>
     );
+  }
 
+  <Header />;
+
+  const StatCard = ({ title, value, change, isFeatured }) => (
+    <div
+      className={`p-6 rounded-3xl ${isFeatured ? "bg-[#1A5336] text-white" : "bg-white border border-gray-100 shadow-sm"}`}
+    >
+      <div className="flex justify-between items-center">
+        <span
+          className={`text-sm font-medium ${isFeatured ? "opacity-80" : "text-gray-500"}`}
+        >
+          {title}
+        </span>
+        <BsArrowUpRight
+          className={isFeatured ? "opacity-80" : "text-gray-400"}
+        />
+      </div>
+      <h2
+        className={`text-4xl font-bold mt-4 ${isFeatured ? "" : "text-gray-900"}`}
+      >
+        {value}
+      </h2>
+      <p
+        className={`mt-4 text-xs font-medium ${isFeatured ? "bg-white/10 w-fit px-2 py-0.5 rounded-full" : "text-gray-400"}`}
+      >
+        {change}
+      </p>
+    </div>
+  );
+  <AnalyticsChart />;
   return (
-    // কন্টেইনারের প্যাডিং সব ডিভাইসের জন্য অ্যাডজাস্ট করা হয়েছে
-    <div className="p-4 md:p-6 lg:p-8 space-y-7">
-      {/* --- অংশ ১: Overview Cards --- */}
-      {/* Grid: মোবাইলে ১ কলাম, ট্যাবলেটে ২, ডেস্কটপে ৪ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        {/* Total Users */}
-        <div className="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
-          <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">
-            Total Users
-          </p>
-          <h3 className="text-2xl font-black text-gray-800 mt-2">
-            {data?.overview?.totalUsers?.toLocaleString() || "0"}
-          </h3>
-          <p className="text-green-500 text-xs mt-2 font-bold">
-            ↑ 12% increase
-          </p>
-        </div>
+    <div className="p-4 md:p-6 lg:p-8 space-y-7 bg-[#F7F7F7] min-h-screen rounded-2xl">
+      <Header />
 
-        {/* Total Revenue */}
-        <div className="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
-          <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">
-            Total Revenue
-          </p>
-          <h3 className="text-2xl font-black text-gray-800 mt-2">
-            ${data?.overview?.revenue?.toLocaleString() || "0"}
-          </h3>
-          <p className="text-blue-500 text-xs mt-2 font-bold">
-            Growth: {data?.overview?.growth || "0"}%
-          </p>
-        </div>
-
-        {/* Active Users */}
-        <div className="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm">
-          <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">
-            Active Users
-          </p>
-          <h3 className="text-2xl font-black text-gray-800 mt-2">
-            {data?.overview?.activeUsers?.toLocaleString() || "0"}
-          </h3>
-          <div className="w-full bg-gray-100 h-1.5 mt-4 rounded-full overflow-hidden">
-            <div
-              className="bg-orange-400 h-full"
-              style={{ width: "70%" }}
-            ></div>
-          </div>
-        </div>
-
-        {/* Growth Card */}
-        <div className="bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm bg-gradient-to-br from-indigo-500 to-purple-600">
-          <p className="text-indigo-100 text-xs font-bold uppercase tracking-wider">
-            Overall Growth
-          </p>
-          <h3 className="text-2xl font-black text-white mt-2">
-            {data?.overview?.growth || "0"}%
-          </h3>
-          <p className="text-indigo-200 text-xs mt-2 font-medium">
-            Yearly Target
-          </p>
-        </div>
+      {/* Stats Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 ">
+        <StatCard
+          title="Total Users"
+          value={data?.overview?.totalUsers?.toLocaleString() || "0"}
+          change="↑ 12% Increased from last month"
+          isFeatured
+        />
+        <StatCard
+          title="Active Users"
+          value="8234"
+          change="↑ Increased from last month"
+        />
+        <StatCard
+          title="Revenue"
+          value="245890"
+          change="↑ Increased from last month"
+        />
+        <StatCard
+          title="Growth"
+          value="23.5"
+          change="↑ Increased from last month"
+        />
       </div>
 
-      {/* --- অংশ ২: Detailed Dashboard --- */}
-      {/* Grid: মোবাইলে ১ কলাম, লার্জ স্ক্রিনে ২/৩ কলাম */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 md:gap-7">
-        {/* Recent Customers Table */}
-        <div className="xl:col-span-2 bg-white p-5 md:p-7 rounded-[28px] border border-gray-100 shadow-sm">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-bold text-gray-800">
-              Recent Customers
-            </h3>
-            <button className="text-blue-600 text-sm font-bold hover:underline">
-              View All
-            </button>
-          </div>
+      {/* Analytics & Project List */}
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
+        {/* Analytics Chart*/}
 
-          {/* টেবিল রেসপন্সিভ করার জন্য overflow-x-auto ব্যবহার করা হয়েছে */}
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[500px]">
-              <thead>
-                <tr className="text-left text-gray-400 text-xs uppercase tracking-widest border-b border-gray-50">
-                  <th className="pb-4 font-semibold">User Info</th>
-                  <th className="pb-4 font-semibold">Status</th>
-                  <th className="pb-4 font-semibold text-right">Join Date</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {data?.users?.map((user) => (
-                  <tr
-                    key={user.id}
-                    className="group hover:bg-gray-50 transition-all"
-                  >
-                    <td className="py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs">
-                          {user.name.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold text-gray-800">
-                            {user.name}
-                          </p>
-                          <p className="text-[11px] text-gray-400">
-                            {user.email}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-4">
-                      <span
-                        className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase ${user.status === "active" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}
-                      >
-                        {user.status}
-                      </span>
-                    </td>
-                    <td className="py-4 text-right text-sm text-gray-500 font-medium">
-                      {user.joinDate}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <AnalyticsChart />
+
+        {/* Reminders - Adjusted to col-span-3 */}
+        <div className="xl:col-span-3 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+          <h3 className="text-lg font-bold text-gray-900">Reminders</h3>
+          <div className="mt-6 bg-gray-50 p-4 rounded-2xl">
+            <h4 className="text-md font-bold text-[#1A5336]">
+              Meeting with Arc Company
+            </h4>
+            <p className="text-xs text-gray-500 mt-1">
+              Time: 02.00 pm - 04.00 pm
+            </p>
           </div>
+          <button className="w-full flex items-center justify-center gap-2 bg-[#1A5336] text-white py-3 rounded-xl mt-6 font-semibold text-sm hover:bg-green-900 transition-all">
+            <FaVideo />
+            Start Meeting
+          </button>
         </div>
 
-        {/* Popular Plans */}
-        <div className="bg-white p-5 md:p-7 rounded-[28px] border border-gray-100 shadow-sm">
-          <h3 className="text-lg font-bold text-gray-800 mb-6">
-            Popular Plans
-          </h3>
-          <div className="space-y-5">
-            {data?.products?.map((product) => (
+        {/* Projects List - Adjusted to col-span-3 */}
+        <div className="xl:col-span-3 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-lg font-bold text-gray-900">products</h3>
+            <button className="text-xs font-semibold text-gray-500 hover:text-gray-800">
+              + New
+            </button>
+          </div>
+          <div className="space-y-4">
+            {data?.products?.slice(0, 4).map((product, i) => (
               <div
-                key={product.id}
-                className="flex items-center justify-between p-4 rounded-2xl bg-gray-50 border border-transparent hover:border-indigo-100 hover:bg-white transition-all cursor-pointer"
+                key={i}
+                className="flex items-center gap-3 border-b border-gray-100 pb-4 last:border-0 last:pb-0"
               >
-                <div className="flex flex-col">
-                  <span className="text-sm font-bold text-gray-800">
-                    {product.name}
-                  </span>
-                  <span className="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">
-                    {product.category}
-                  </span>
+                {/* Product Initials */}
+                <div
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xs ${
+                    i % 2 === 0
+                      ? "bg-blue-50 text-blue-600"
+                      : "bg-green-50 text-green-600"
+                  }`}
+                >
+                  {product.code || product.name.substring(0, 2).toUpperCase()}
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-black text-indigo-600">
-                    ${product.price}
+
+                {/* Product Name & Category */}
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-gray-900">
+                    {product.name}
                   </p>
-                  <p className="text-[10px] text-gray-400 font-bold">
-                    {product.sales} sold
+                  <p className="text-xs text-gray-500 capitalize">
+                    {product.category}
+                  </p>
+                </div>
+
+                {/* Price & Sales */}
+                <div className="text-right">
+                  <p className="text-sm font-bold text-gray-900">
+                    ${product.price.toFixed(2)}
+                  </p>
+                  <p className="text-xs text-green-600 font-semibold">
+                    Sales: {product.sales}
                   </p>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Team & Progress Section - Updated Grid to 12 */}
+        <div className="col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-5">
+          {/* Team Collaboration - col-span-5 */}
+          <div className="lg:col-span-5 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+            <div className="flex justify-between items-center mb-3.5">
+              <h3 className="text-lg font-bold text-gray-900">
+                Team Collaboration
+              </h3>
+              <button className="flex items-center gap-2 text-[#1A5336] px-4 py-2 rounded-full text-sm font-semibold border border-[#1A5336] hover:bg-green-50 transition-all">
+                <MdAdd /> Add Members
+              </button>
+            </div>
+
+            <div className="space-y-5">
+              {data?.users?.slice(0, 5).map((user, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-between border-b border-gray-100 pb-4 last:border-0 last:pb-0"
+                >
+                  <div className="flex items-center gap-3">
+                    {/* Profile Icon */}
+                    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-500">
+                      {user.name.charAt(0)}
+                    </div>
+                    <div>
+                      {/* Name */}
+                      <p className="text-sm font-semibold text-gray-900">
+                        {user.name}
+                      </p>
+                      {/* Email & Date */}
+                      <p className="text-xs text-gray-500">
+                        {user.email} • Joined: {user.joinDate}
+                      </p>
+                    </div>
+                  </div>
+                  {/* Status Badge */}
+                  <span
+                    className={`text-xs px-2 py-0.5 rounded-full font-bold ${
+                      user.status === "active"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-orange-100 text-orange-700"
+                    }`}
+                  >
+                    {user.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Project Progress - col-span-4 */}
+          <div className="lg:col-span-4 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col items-center">
+            <h3 className="text-lg font-bold text-gray-900 self-start mb-6">
+              Project Progress
+            </h3>
+            <div className="relative w-32 h-32">
+              <div className="absolute inset-0 rounded-full border-8 border-gray-100"></div>
+              <div className="absolute inset-0 rounded-full border-8 border-[#1A5336] border-t-transparent -rotate-45"></div>
+              <div className="absolute inset-0 flex items-center justify-center text-2xl font-bold">
+                41%
+              </div>
+            </div>
+            <p className="text-xs text-gray-400 font-semibold mt-4">
+              Project Ended
+            </p>
+          </div>
+
+          {/* Time Tracker - col-span-3 */}
+          <div className="lg:col-span-3 bg-[#1A5336] p-6 rounded-3xl text-white flex flex-col items-center justify-center">
+            <span className="text-xs font-semibold opacity-70">
+              Time Tracker
+            </span>
+            <p className="text-4xl font-mono font-bold mt-2">01:24:08</p>
+            <div className="flex gap-3 mt-5">
+              <button className="p-3 bg-white/20 rounded-full hover:bg-white/30">
+                <MdPlayArrow />
+              </button>
+              <button className="p-3 bg-red-500 rounded-full hover:bg-red-600">
+                <MdStop />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -376,4 +250,4 @@ const OverviewPage = () => {
   );
 };
 
-export default OverviewPage;
+export default Overview;
