@@ -1,73 +1,9 @@
-// import axios from "axios";
-// import { useContext, useState } from "react";
-// import { useNavigate } from "react-router";
-// import { AuthContext } from "../context/AuthContext";
-
-// const Login = () => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const navigate = useNavigate();
-//   const { setUser } = useContext(AuthContext);
-//   const handleLogin = async () => {
-//     if (!email || !password) {
-//       alert("Please fill in both fields");
-//       return;
-//     }
-//     try {
-//       const res = await axios.post(
-//         "https://task-api-eight-flax.vercel.app/api/login",
-//         {
-//           email: email,
-//           password: password,
-//         },
-//       );
-//       localStorage.setItem("user", JSON.stringify(res.data));
-//       const token = res.data.token || "dummy-token";
-//       localStorage.setItem("token", token);
-//       setUser(res.data);
-//       navigate("/dashboard");
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   return (
-//     <div className="min-h-screen flex items-center justify-center">
-//       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-//         <legend className="fieldset-legend">Login</legend>
-
-//         <label className="label">Email</label>
-//         <input
-//           type="email"
-//           className="input"
-//           placeholder="Email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//         />
-
-//         <label className="label">Password</label>
-//         <input
-//           type="password"
-//           className="input"
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//         />
-
-//         <button onClick={handleLogin} className="btn btn-neutral mt-4">
-//           Login
-//         </button>
-//       </fieldset>
-//     </div>
-//   );
-// };
-
-// export default Login;
-
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -78,7 +14,10 @@ const Login = () => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      alert("Please fill in both fields");
+      toast.error("Please fill in both fields!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       return;
     }
 
@@ -90,29 +29,25 @@ const Login = () => {
       );
 
       // --- BONUS TASK IMPLEMENTATION ---
-      // 1. Backend theke asha token-ti ninn
       const token = res.data.token;
 
       if (token) {
-        // 2. Token-ti localStorage-e save kora (Gate Pass)
         localStorage.setItem("token", token);
-
-        // 3. User info save kora persistence-er jonno
         localStorage.setItem("user", JSON.stringify(res.data));
-
-        // 4. Global Auth State update kora
         setUser(res.data);
-
-        // 5. Success redirection
+        toast.success("Successfully Logged In", {
+          position: "top-right",
+          autoClose: 2000,
+        });
+        // Success redirection
         navigate("/dashboard/overview");
       }
     } catch (error) {
       console.error("Login Error:", error);
-      // Backend error message thakle seta dekhano, nahole default message
-      const errorMsg =
-        error.response?.data?.message ||
-        "Login failed! Check your credentials.";
-      alert(errorMsg);
+      toast.error("Login failed! Check your credentials.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } finally {
       setLoading(false);
     }
