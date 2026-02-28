@@ -48,7 +48,6 @@ const StateCard = () => {
   const StatCard = ({ title, value, change, isFeatured }) => (
     <div
       className={`p-5 md:p-6 rounded-3xl ${
-        // ✅ Responsive padding
         isFeatured
           ? "bg-[#1A5336] text-white"
           : "bg-white border border-gray-100 shadow-sm"
@@ -67,8 +66,7 @@ const StateCard = () => {
         />
       </div>
       <h2
-        className={`text-3xl md:text-4xl font-bold mt-3 md:mt-4 ${
-          // ✅ Responsive font size
+        className={`text-3xl md:text-2xl sm:text-[20px] font-bold mt-3 md:mt-4 ${
           isFeatured ? "" : "text-gray-900"
         }`}
       >
@@ -76,7 +74,6 @@ const StateCard = () => {
       </h2>
       <p
         className={`mt-3 md:mt-4 text-xs font-medium ${
-          // ✅ Responsive margin
           isFeatured
             ? "bg-white/10 w-fit px-2 py-0.5 rounded-full"
             : "text-gray-400"
@@ -88,11 +85,10 @@ const StateCard = () => {
   );
 
   return (
-    // ✅ প্যাডিং ফিক্সড করা হয়েছে বড় এবং ছোট স্ক্রিনের জন্য
     <div className="p-3 md:p-6 bg-[#F7F7F7]">
       {/* Stats Section */}
-      {/* ✅ গ্রিড স্ট্রাকচার রেসপন্সিভ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
         <StatCard
           title="Total Users"
           value={data?.totalUsers?.toLocaleString() || "0"}

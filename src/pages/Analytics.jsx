@@ -30,7 +30,6 @@ const Analytics = () => {
     fetchAnalytics();
   }, []);
 
-  // Summary calculation (Total calculate kora logic)
   const totalViews = data.reduce((sum, item) => sum + item.views, 0);
   const totalClicks = data.reduce((sum, item) => sum + item.clicks, 0);
   const totalConv = data.reduce((sum, item) => sum + item.conversions, 0);

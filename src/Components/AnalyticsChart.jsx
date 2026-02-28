@@ -25,9 +25,9 @@ const AnalyticsChart = () => {
       : 0;
 
   return (
-    <div className=" bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+    <div className=" bg-white p-6 rounded-3xl border border-gray-100 shadow-sm h-[40vh]">
       <div className="flex justify-between items-center ">
-        <h3 className="text-lg font-bold text-gray-900">Project Analytics</h3>
+        <h3 className="text-lg font-bold text-gray-900 ">Project Analytics</h3>
         <span className="text-xs font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
           Last 7 Days
         </span>

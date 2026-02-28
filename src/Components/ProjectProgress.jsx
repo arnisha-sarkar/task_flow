@@ -3,13 +3,11 @@ import React from "react";
 const ProjectProgress = () => {
   const percentage = 41;
   const radius = 70;
-  // অর্ধবৃত্তের পরিধি হিসাব
   const circumference = Math.PI * radius;
-  // Percentage অনুযায়ী বারটি ফিল করার অফসেট
   const offset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm w-full max-w-sm lg:col-span-4">
+    <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm w-full">
       {/* Title */}
       <h3 className="text-lg font-bold text-gray-900 mb-6">Project Progress</h3>
 
@@ -39,7 +37,7 @@ const ProjectProgress = () => {
         </svg>
 
         {/* Percentage & Text in Center */}
-        {/* ✅ লেখাটি সেন্টারে আনার জন্য পজিশন ঠিক করা হয়েছে */}
+
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center mt-2">
           <p className="text-5xl font-extrabold text-gray-900">{percentage}%</p>
           <p className="text-sm font-semibold text-gray-500 mt-1">

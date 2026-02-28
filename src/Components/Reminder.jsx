@@ -3,9 +3,7 @@ import { FaVideo } from "react-icons/fa";
 
 const Reminder = () => {
   return (
-    // ✅ Responsive classes: 'w-full' for full width on mobile,
-    // and responsive padding 'p-4 md:p-6'
-    <div className="w-full bg-white p-4 md:p-6 rounded-3xl border border-gray-100 shadow-sm">
+    <div className="w-full bg-white p-4 md:p-6 rounded-3xl border border-gray-100 shadow-sm h-[40vh]">
       <h3 className="text-lg font-bold text-gray-900">Reminders</h3>
 
       {/* Responsive background padding */}

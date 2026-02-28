@@ -118,8 +118,6 @@ const Overview = () => {
       {/* Stats Section */}
       <StateCard />
 
-      {/* Analytics & Project List - Responsive Grid */}
-      {/* ✅ Responsive: মোবাইল-১ কলাম, ট্যাবলেট-২ কলাম, বড় স্ক্রিন-১২ কলাম */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-5 items-start">
         {/* Analytics Chart - 6/12 columns */}
         <div className="md:col-span-2 xl:col-span-5">
@@ -142,7 +140,7 @@ const Overview = () => {
         </div>
 
         {/* Project Progress - 4/12 columns */}
-        <div className="md:col-span-1 xl:col-span-4">
+        <div className="md:col-span-1 xl:col-span-4 ">
           <ProjectProgress />
         </div>
 
