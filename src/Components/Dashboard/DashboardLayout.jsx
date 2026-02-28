@@ -5,7 +5,7 @@ import NavBar from "./NavBar";
 
 const DashboardLayout = () => {
   return (
-    <div className="flex h-screen bg-[green] p-5 gap-5">
+    <div className="flex h-screen bg-[#FFF] p-5 gap-5">
       {/* left sidebar */}
       <div className="w-64 shrink-0 h-full">
         <Sidebar />

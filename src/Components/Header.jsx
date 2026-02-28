@@ -3,7 +3,8 @@ import { MdAdd, MdFileDownload } from "react-icons/md";
 
 const Header = () => {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    // ✅ 'sm:hidden' ক্লাসটি এখান থেকে সরিয়ে দেওয়া হয়েছে
+    <div className="flex flex-col sm:flex-row justify-between gap-4">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Overview</h1>
         <p className="text-gray-500 text-sm">
@@ -21,4 +22,5 @@ const Header = () => {
     </div>
   );
 };
+
 export default Header;
